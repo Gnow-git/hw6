@@ -206,8 +206,27 @@ int deleteNode(headNode* h, int key) {
  * list의 마지막 노드 삭제
  */
 int deleteLast(headNode* h) {
+	listNode* frontnode;
+	listNode* delLastnode;
+	if(h -> first == NULL){	// 삭제할 노드가 없을 경우 종료
+		printf("삭제할 마지막 노드가 없습니다.\n");
+	} return 0;
 
-	return 0;
+	if(h -> first -> link == NULL){			// 리스트에 노드가 1개일때
+		freeList(h);						// 할당 메모리 해제
+		h -> first = NULL;					// head를 NULL로 지정
+		return 0;							// 종료
+	}
+	else{									// 2개 이상의 노드가 있을 경우
+		frontnode = h -> first;					// 삭제할 delLastnode 앞의 frontnode를 첫번째 노드로 설정 
+		delLastnode = h -> first -> link;		// 삭제할 노드를 두번째 노드로 설정
+		while(delLastnode -> link != NULL){		// 삭제할 노드가 NULL이 아닐때까지 
+			frontnode = delLastnode;			// frontnode와 delLastnode를 뒤로 이동
+			delLastnode = delLastnode -> link;
+		}
+		free(delLastnode);						// 마지막 노드 발견시 마지막 노드 메모리 반환
+		frontnode -> link = NULL;				// frontnode가 delLastnode에 가리키는 링크 NULL 지정
+	}
 }
 
 
