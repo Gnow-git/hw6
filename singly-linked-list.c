@@ -157,15 +157,18 @@ int insertFirst(headNode* h, int key) {         // f 입력시 실행 메소드
 
 /* 리스트를 검색하여, 입력받은 key보다 큰값이 나오는 노드 바로 앞에 삽입 */
 int insertNode(headNode* h, int key) {
-   /*listNode* newNode;
-   listNode* temp = h->first;
-
-   int max_val = temp ->key;
-   for(temp; temp !=NULL; temp = temp->link)
-      if (max_val <temp->key)
-      newNode->link = NULL;
-      h->first->link = newNode;
-      printf("%d", max_val);*/
+   listNode* newNode = (listNode*)malloc(sizeof(listNode));
+   newNode ->key = key;
+   if(h ->first->link == NULL)   // 헤드의 값이 NULL일시
+   {
+      newNode ->link = NULL;
+      h ->first ->link = newNode;   // newNode에 시작노드 지정
+   }
+   else{
+      newNode ->link = h ->first ->link;  // 삽입 노드 실행
+      h ->first ->link = newNode;
+   }
+   return 0;
 }
 
 /**
@@ -178,7 +181,7 @@ int insertLast(headNode* h, int key) {
    node ->link = NULL;         // key 저장 후 아직 가리키는 노드가 없기때문에 NULL 할당
 
    if(h -> first == NULL ){   // NULL일 경우
-      h -> first = node;      // 헤드 노드가 node를 가리킴
+      h -> first = node;      // 시작노드가 node를 가리킴
       return 0;            // 종료
    }
    
@@ -233,7 +236,6 @@ int deleteNode(headNode* h, int key) {          // 원하는 노드 값 삭제하는 메소�
            frontfind = find ->link;              // 찾고자하는 값을 frontfind로 가리킨다.
            find -> link = find ->link->link;     // 삭제하고자하는 노드의 양옆을 이어준다.
            free(frontfind);                      // 대상 노드를 삭제시킨다.
-           printf("%d\n", key);
            return 0;
         }
         find = find -> link;                      // 찾는 값이 없으면 다음 데이터로 넘어간다.
