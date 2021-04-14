@@ -157,21 +157,15 @@ int insertFirst(headNode* h, int key) {         // f 입력시 실행 메소드
 
 /* 리스트를 검색하여, 입력받은 key보다 큰값이 나오는 노드 바로 앞에 삽입 */
 int insertNode(headNode* h, int key) {
-   listNode* newNode = (listNode*)malloc(sizeof(listNode));
-   listNode* maxNode;
-   newNode -> key = key;
-   newNode ->link = NULL;
-   
-   if(h->first == NULL)
-   {
-      h-> first = newNode;
-      return 0;
-   }
-      maxNode = h -> first;
-      while(maxNode ->key > key){
-         maxNode = maxNode ->link;
-      }
-      maxNode ->link = newNode;
+   /*listNode* newNode;
+   listNode* temp = h->first;
+
+   int max_val = temp ->key;
+   for(temp; temp !=NULL; temp = temp->link)
+      if (max_val <temp->key)
+      newNode->link = NULL;
+      h->first->link = newNode;
+      printf("%d", max_val);*/
 }
 
 /**
@@ -193,7 +187,7 @@ int insertLast(headNode* h, int key) {
    while(lastNode -> link != NULL ){      // lastnode가 NULL이 아닐때까지 반복
       lastNode = lastNode -> link;      // 마지막 링크 값을 찾는다.
    }
-   lastNode -> link = node;         // lastnode가 node를 가리키게 선언.
+   lastNode -> link = node;         // 해당 사항 없을시 다음 노드로 이동
 }
 
 
@@ -216,10 +210,9 @@ int deleteFirst(headNode* h) {
    else{                 
    trail = h -> first;              // 시작노드를 trail에 지정
    h -> first = trail ->link;       // 시작노드를 trail의 다음 link에 지정
-   free(trail);                     // 선행노드 반환
-   trail ->link = NULL;             // 선행노드 링크 제거
-   return 0;
+   
    }
+   return 0;
 }
 
 
